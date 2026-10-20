@@ -11,7 +11,9 @@ export async function GET(req:Request){
  headers.set('cf-connecting-ip',req.headers.get('cf-connecting-ip')||'anonymous');
  const response=await fetch(config.MODOO_API_URL+'/'+action,{method:req.method,headers,body:req.method==='POST'?await req.text():undefined,signal:AbortSignal.timeout(20000)});
  const resultHeaders=new Headers({'Content-Type':'application/json','Cache-Control':'no-store'});
- const cookie=response.headers.get('set-cookie');if(cookie)resultHeaders.set('set-cookie',cookie);
+ // Never forward combined upstream cookies: a Supabase Domain attribute would invalidate our session cookie.
+ const session=response.headers.get('set-cookie')?.match(/(?:^|,\s*)mt_session=([a-f0-9]{64}|)(?=;|$)/)?.[1];
+ if(session!==undefined)resultHeaders.set('set-cookie',`mt_session=${session}; HttpOnly; Secure; SameSite=Lax; Path=/; Max-Age=${session?604800:0}`);
  return new Response(response.body,{status:response.status,headers:resultHeaders});
  }catch{return Response.json({error:'서버 연결이 원활하지 않아요. 잠시 후 다시 시도해 주세요.'},{status:503})}
 }
