@@ -1,0 +1,48 @@
+{
+  "version": "7",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "6",
+      "when": 1792129539701,
+      "tag": "0000_small_adam_warlock",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1792131668339,
+      "tag": "0001_curvy_arachne",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1792418428877,
+      "tag": "0002_flippant_paladin",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1792418584518,
+      "tag": "0003_supreme_the_fallen",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1792418971953,
+      "tag": "0004_bored_impossible_man",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "6",
+      "when": 1792502800000,
+      "tag": "0005_clear_previous_game_records",
+      "breakpoints": true
+    }
+  ]
+}
