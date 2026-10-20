@@ -39,5 +39,5 @@ body{background:radial-gradient(ellipse at 82% 17%,#fff1ae88,transparent 45%),li
 
 .auth .auth-switch{display:grid;grid-template-columns:.8fr 1.2fr 1.1fr;gap:4px;margin:5px 0 23px;background:#f4eddc;border-radius:14px;padding:5px}.auth-switch button{font-size:12px;padding:11px 4px;line-height:1.5;border-radius:10px;background:transparent;color:#978365;word-break:keep-all}.auth-switch button[aria-pressed=true]{background:#fffdf6;color:#684b25;box-shadow:0 2px 5px #80652916;font-weight:750}.auth .auth-card>.eyebrow{display:none}.auth #showPassword{float:right;background:none;color:#8d733f;font-size:12px;padding:0 4px}.auth [aria-invalid=true]{border-color:#c76442;background:#fff7f2}.auth #formError{color:#ac543c;line-height:1.7;margin:8px 0 0;overflow-wrap:anywhere}.invite-notice strong{display:block;font-size:18px;letter-spacing:1.5px;user-select:all;margin:6px 0}.invite-notice button{padding:9px 12px;border-radius:10px;background:#fffdf3;color:#826333;font-size:12px}.invite-notice small{display:block;font-size:11px;line-height:1.7;margin-top:6px}.auth .close{top:7px;right:8px}.auth{padding-top:34px}
 
-.participation-guide h2{margin:0;padding:21px 24px;font-size:15px;font-weight:750;color:#736a50;line-height:1.5}
-@media(max-width:650px){.participation-guide h2{padding:19px 20px;font-size:14px}}
+.participation-guide h2,.panel .ranking-title{margin:0;padding:21px 24px;font-size:15px;font-weight:750;color:#736a50;line-height:1.5}
+@media(max-width:650px){.participation-guide h2,.panel .ranking-title{padding:19px 20px;font-size:14px}}
