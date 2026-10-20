@@ -7,13 +7,19 @@ export async function GET(req:Request){
  if(origin&&origin!==url.origin)return Response.json({error:'잘못된 요청입니다.'},{status:403});
  try{
  const headers=new Headers({'x-modoo-key':config.MODOO_BRIDGE_KEY,'x-mentor-master':config.MENTOR_MASTER_CODE||'','Content-Type':'application/json'});
- headers.set('cookie',req.headers.get('cookie')||'');
+ const suppliedSession=req.headers.get('x-modoo-session');
+ if(suppliedSession&&!/^[a-f0-9]{64}$/.test(suppliedSession))return Response.json({error:'로그인 정보가 유효하지 않아요.'},{status:401});
+ headers.set('cookie',suppliedSession?'mt_session='+suppliedSession:req.headers.get('cookie')||'');
  headers.set('cf-connecting-ip',req.headers.get('cf-connecting-ip')||'anonymous');
  const response=await fetch(config.MODOO_API_URL+'/'+action,{method:req.method,headers,body:req.method==='POST'?await req.text():undefined,signal:AbortSignal.timeout(20000)});
  const resultHeaders=new Headers({'Content-Type':'application/json','Cache-Control':'no-store'});
  // Never forward combined upstream cookies: a Supabase Domain attribute would invalidate our session cookie.
  const session=response.headers.get('set-cookie')?.match(/(?:^|,\s*)mt_session=([a-f0-9]{64}|)(?=;|$)/)?.[1];
  if(session!==undefined)resultHeaders.set('set-cookie',`mt_session=${session}; HttpOnly; Secure; SameSite=Lax; Path=/; Max-Age=${session?604800:0}`);
+ if(response.ok&&session&&['create','join','enroll'].includes(action!)){
+ const body=await response.json() as Record<string,unknown>;
+ return Response.json({...body,sessionToken:session},{status:response.status,headers:resultHeaders});
+ }
  return new Response(response.body,{status:response.status,headers:resultHeaders});
  }catch{return Response.json({error:'서버 연결이 원활하지 않아요. 잠시 후 다시 시도해 주세요.'},{status:503})}
 }
